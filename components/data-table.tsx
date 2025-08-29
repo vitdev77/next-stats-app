@@ -1,4 +1,6 @@
-import axios from "axios";
+"use client";
+
+import * as React from "react";
 import { IconCalculator, IconEdit, IconTrash } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,15 +11,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+// import {
+//   Pagination,
+//   PaginationContent,
+//   PaginationEllipsis,
+//   PaginationItem,
+//   PaginationLink,
+//   PaginationNext,
+//   PaginationPrevious,
+// } from "@/components/ui/pagination";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -41,6 +43,9 @@ interface IProps {
 }
 
 export default function DataTable({ records }: IProps) {
+  // const rowsPerPage = 10;
+  // const [startIndex, setStartIndex] = React.useState(0);
+  // const [endIndex, setEndIndex] = React.useState(rowsPerPage);
   return (
     <div className="flex flex-col gap-2">
       <div className="flex">
@@ -62,6 +67,7 @@ export default function DataTable({ records }: IProps) {
           </TableHeader>
           <TableBody>
             {records
+              // .slice(startIndex, endIndex)
               .sort((a, b) => (a.date < b.date ? 1 : -1)) // sort data from NEW to LATE
               .map((record) => (
                 <TableRow key={record.id}>
@@ -141,22 +147,36 @@ export default function DataTable({ records }: IProps) {
               ))}
           </TableBody>
         </Table>
-        <Pagination className="py-6">
+        {/* <Pagination className="py-6">
           <PaginationContent>
             <PaginationItem>
-              <PaginationPrevious href="#" />
+              <PaginationPrevious
+                className={
+                  startIndex === 0
+                    ? "pointer-events-none opacity-50 cursor-not-allowed"
+                    : "cursor-pointer"
+                }
+                onClick={() => {
+                  setStartIndex(startIndex - rowsPerPage);
+                  setEndIndex(endIndex - rowsPerPage);
+                }}
+              />
             </PaginationItem>
             <PaginationItem>
-              <PaginationLink href="#">1</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext href="#" />
+              <PaginationNext
+                className={
+                  endIndex === 30
+                    ? "pointer-events-none opacity-50 cursor-not-allowed"
+                    : "cursor-pointer"
+                }
+                onClick={() => {
+                  setStartIndex(startIndex + rowsPerPage);
+                  setEndIndex(endIndex + rowsPerPage);
+                }}
+              />
             </PaginationItem>
           </PaginationContent>
-        </Pagination>
+        </Pagination> */}
       </div>
     </div>
   );

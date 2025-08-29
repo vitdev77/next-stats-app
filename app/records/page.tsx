@@ -8,9 +8,9 @@ import DataTable from "@/components/data-table";
 import { IconLoader3 } from "@tabler/icons-react";
 
 export default function Page() {
-  const [isRecords, setIsRecords] = React.useState<any[]>([]);
-  const [isLoading, setIsLoading] = React.useState<boolean>(true);
-  const [isError, setIsError] = React.useState<boolean>(false);
+  const [records, setRecords] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [error, setError] = React.useState<boolean>(false);
   const [isEmpty, setIsEmpty] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -18,22 +18,22 @@ export default function Page() {
       axios
         .get("http://localhost:5000/records")
         .then((res) =>
-          res.data.length === 0 ? setIsEmpty(true) : setIsRecords(res.data)
+          res.data.length === 0 ? setIsEmpty(true) : setRecords(res.data)
         )
-        .catch((err) => (console.log(err), setIsError(true)))
-        .finally(() => setIsLoading(false));
+        .catch((err) => (console.log(err), setError(true)))
+        .finally(() => setLoading(false));
     }, 500);
   }, []);
 
   return (
     <div className="container-wrapper 3xl:fixed:px-0 px-6">
       <div className="3xl:fixed:container w-full">
-        {isLoading && (
+        {loading && (
           <div className="text-center text-muted-foreground/50 flex justify-center gap-2 py-6">
             <IconLoader3 className="animate-spin" /> Loading data...
           </div>
         )}
-        {isError && (
+        {error && (
           <div className="text-center py-6">
             <h2 className="text-destructive text-2xl font-semibold">
               Unable to load the data.
@@ -44,7 +44,7 @@ export default function Page() {
             </span>
           </div>
         )}
-        {!isLoading && !isError && (
+        {!loading && !error && (
           <>
             {isEmpty ? (
               <div className="text-center py-6">
@@ -57,8 +57,8 @@ export default function Page() {
               </div>
             ) : (
               <div className="flex flex-col gap-4 md:gap-6 py-6">
-                <DataChart records={isRecords} />
-                <DataTable records={isRecords} />
+                <DataChart records={records} />
+                <DataTable records={records} />
               </div>
             )}
           </>
