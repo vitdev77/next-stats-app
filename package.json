@@ -3,12 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "concurrently \"next dev --turbopack\" \"json-server --watch db.json --port 5000\"",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint",
-    "server": "json-server --watch db.json --port 5000",
-    "concurrently": "concurrently --kill-others \"pnpm run dev\" \"pnpm run server\""
+    "lint": "eslint"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
