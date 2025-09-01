@@ -94,7 +94,6 @@ export function DataTable<TData, TValue>({
         </Button> */}
         <Button
           variant={"outline"}
-          size={"sm"}
           onClick={() => table.firstPage()}
           disabled={!table.getCanPreviousPage()}
         >
@@ -102,40 +101,25 @@ export function DataTable<TData, TValue>({
         </Button>
         <Button
           variant={"outline"}
-          size={"sm"}
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          <IconChevronLeft />
+          <IconChevronLeft /> Prev
         </Button>
         <Button
           variant={"outline"}
-          size={"sm"}
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          <IconChevronRight />
+          Next <IconChevronRight />
         </Button>
         <Button
           variant={"outline"}
-          size={"sm"}
           onClick={() => table.lastPage()}
           disabled={!table.getCanNextPage()}
         >
           <IconChevronsRight />
         </Button>
-        <select
-          value={table.getState().pagination.pageSize}
-          onChange={(e) => {
-            table.setPageSize(Number(e.target.value));
-          }}
-        >
-          {[5, 10, 20, 30, 40, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              {pageSize}
-            </option>
-          ))}
-        </select>
         {/* {table.getCanPreviousPage() && (
           <Button
             variant="outline"
@@ -156,6 +140,35 @@ export function DataTable<TData, TValue>({
             Next <IconChevronRight />
           </Button>
         )} */}
+        {/* <select
+          value={table.getState().pagination.pageSize}
+          onChange={(e) => {
+            table.setPageSize(Number(e.target.value));
+          }}
+        >
+          {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              {pageSize}
+            </option>
+          ))}
+        </select> */}
+        <Select
+          value={table.getState().pagination.pageSize.toString()}
+          onValueChange={(val) => {
+            table.setPageSize(Number(val));
+          }}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="0" />
+          </SelectTrigger>
+          <SelectContent align="end">
+            {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+              <SelectItem key={pageSize} value={pageSize.toPrecision()}>
+                {pageSize}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <div className="overflow-hidden rounded-md border">
         <Table>
