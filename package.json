@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev --turbopack\" \"json-server --watch db.json --port 5000\"",
+    "dev": "next dev --turbopack",
+    "dev:all": "concurrently \"json-server --watch db.json --port 3050\" \"next dev --turbopack\"",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint"

@@ -13,10 +13,12 @@ export default function Page() {
   const [error, setError] = React.useState<boolean>(false);
   const [isEmpty, setIsEmpty] = React.useState<boolean>(false);
 
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
   React.useEffect(() => {
     setTimeout(() => {
       axios
-        .get("http://localhost:5000/records")
+        .get(`${apiBaseUrl}/records`)
         .then((res) =>
           res.data.length === 0 ? setIsEmpty(true) : setRecords(res.data)
         )

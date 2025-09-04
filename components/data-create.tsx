@@ -48,6 +48,8 @@ export function DataCreate() {
   // const [isDataExists, setIsDataExists] = React.useState<boolean>(false);
   const router = useRouter();
 
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
   const currentDate = new Date();
   const formattedCurrentDate = currentDate.toISOString().split("T")[0];
 
@@ -65,12 +67,12 @@ export function DataCreate() {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Check if enterred date is exists in DB
-      const response = await axios.get("http://localhost:5000/records", {
+      const response = await axios.get(`${apiBaseUrl}/records`, {
         params: { date: data.date },
       });
       const receivedData = response.data;
       if (receivedData === undefined || receivedData.length === 0) {
-        await axios.post("http://localhost:5000/records", data);
+        await axios.post(`${apiBaseUrl}/records`, data);
         // setIsDataExists(false);
         form.reset();
         setIsOpen(false);

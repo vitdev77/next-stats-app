@@ -53,19 +53,21 @@ export default function RecordPage({
 
   const { id } = React.use(params);
 
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
   // React.useEffect(() => {
   //   id && fetchRecord();
   // }, [id]);
 
   // const fetchRecord = async () => {
-  //   const response = await axios.get(`http://localhost:5000/records/${id}`);
+  //   const response = await axios.get(`${apiBaseUrl}/records/${id}`);
   //   return setRecord(response.data);
   // };
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////
   // Fetch single record by ID
   // axios
-  //   .get(`http://localhost:5000/records/${id}`)
+  //   .get(`${apiBaseUrl}/records/${id}`)
   //   .then((response) => {
   //     console.log("Record by ID:", response.data);
   //   })
@@ -76,7 +78,7 @@ export default function RecordPage({
   // // Update record by ID
   // const updatedRecord = { date: "Updated Date", balance: "Updated Balance" };
   // axios
-  //   .put(`http://localhost:5000/records/${id}`, updatedRecord)
+  //   .put(`${apiBaseUrl}/records/${id}`, updatedRecord)
   //   .then((response) => {
   //     console.log("Updated Record:", response.data);
   //   })
@@ -86,7 +88,7 @@ export default function RecordPage({
 
   // // Delete record by ID
   // axios
-  //   .delete(`http://localhost:5000/records/${id}`)
+  //   .delete(`${apiBaseUrl}/records/${id}`)
   //   .then(() => {
   //     console.log("Record deleted successfully.");
   //   })
@@ -107,7 +109,7 @@ export default function RecordPage({
     const updatedRecord = { ...data };
     startEditTransition(async () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      await axios.put("http://localhost:5000/records/" + id, updatedRecord);
+      await axios.put(`${apiBaseUrl}/records/${id}`, updatedRecord);
       router.push("/records");
       toast.success("Your record successfully changed.");
     });
@@ -117,7 +119,7 @@ export default function RecordPage({
     e.preventDefault();
     startDeleteTransition(async () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      await axios.delete("http://localhost:5000/records/" + id);
+      await axios.delete(`${apiBaseUrl}/records/${id}`);
       toast.success("Your record was successfully deleted.", {
         description: "Now you can create a new one.",
       });
@@ -134,7 +136,7 @@ export default function RecordPage({
   // console.log(jData);
 
   // let ddaattaa = axios
-  //   .get("http://localhost:5000/records")
+  //   .get(`${apiBaseUrl}/records/${id}`)
   //   .then((res) => console.log(res.data));
   // console.log(ddaattaa);
 

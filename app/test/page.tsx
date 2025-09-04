@@ -3,8 +3,10 @@ import { columns, Records } from "./columns";
 import { DataTable } from "./data-table";
 
 async function getData(): Promise<Records[]> {
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
   const fetchData = axios
-    .get("http://localhost:5000/records")
+    .get(`${apiBaseUrl}/records`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 
