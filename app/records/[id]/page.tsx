@@ -26,15 +26,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 
 const FormSchema = z.object({
-  date: z.iso.date({
-    message: "Must be in the format YYYY-MM-DD",
-  }),
+  // date: z.iso.date({
+  //   message: "Must be in the format YYYY-MM-DD",
+  // }),
   balance: z
     .string()
+    .min(1, { message: "This field cannot be empty" })
     .regex(/^(0|[1-9]\d*)\.\d{2}$/, {
-      message: "Must be a number with exactly 2 decimal places",
+      message: "Must be a number with exactly 2 decimal places (e.g. 100.00)",
     })
     .refine((val) => parseFloat(val) > 0, {
       message: "Money amount must be greater than 0",
@@ -55,14 +57,14 @@ export default function RecordPage({
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-  // React.useEffect(() => {
-  //   id && fetchRecord();
-  // }, [id]);
+  React.useEffect(() => {
+    id && fetchRecord();
+  }, [id]);
 
-  // const fetchRecord = async () => {
-  //   const response = await axios.get(`${apiBaseUrl}/records/${id}`);
-  //   return setRecord(response.data);
-  // };
+  const fetchRecord = async () => {
+    const response = await axios.get(`${apiBaseUrl}/records/${id}`);
+    return setRecord(response.data);
+  };
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////
   // Fetch single record by ID
@@ -100,7 +102,7 @@ export default function RecordPage({
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      date: "",
+      // date: "",
       balance: "",
     },
   });
@@ -146,8 +148,13 @@ export default function RecordPage({
         <Card className="w-full max-w-sm">
           <CardHeader>
             <CardTitle>
-              Change your record{" "}
-              <span className="text-muted-foreground text-2xl">{id}</span>
+              Change your record ID{" "}
+              <Badge
+                variant={"secondary"}
+                className="text-xl text-white font-bold bg-blue-500 dark:bg-blue-600"
+              >
+                {id}
+              </Badge>
             </CardTitle>
             <CardDescription>
               Enter data below to change your record.
@@ -160,7 +167,7 @@ export default function RecordPage({
                 className="w-full space-y-6"
               >
                 <FormField
-                  control={form.control}
+                  // control={form.control}
                   name="date"
                   render={({ field }) => (
                     <FormItem>
@@ -171,7 +178,8 @@ export default function RecordPage({
                           placeholder="date here"
                           {...field}
                           // value={record.date}
-                          disabled={isEditPending || isDeletePending}
+                          disabled
+                          tabIndex={-1}
                         />
                       </FormControl>
                       <FormMessage />

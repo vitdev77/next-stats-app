@@ -34,8 +34,9 @@ const FormSchema = z.object({
   }),
   balance: z
     .string()
+    .min(1, { message: "This field cannot be empty" })
     .regex(/^(0|[1-9]\d*)\.\d{2}$/, {
-      message: "Must be a number with exactly 2 decimal places (E.g. 100.00)",
+      message: "Must be a number with exactly 2 decimal places (e.g. 100.00)",
     })
     .refine((val) => parseFloat(val) > 0, {
       message: "Money amount must be greater than 0",
@@ -51,12 +52,12 @@ export function DataCreate() {
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const currentDate = new Date();
-  const formattedCurrentDate = currentDate.toISOString().split("T")[0];
+  const currentDateFormated = currentDate.toISOString().split("T")[0];
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      date: formattedCurrentDate,
+      date: currentDateFormated,
       balance: "",
     },
   });
