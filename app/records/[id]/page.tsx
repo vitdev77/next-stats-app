@@ -29,9 +29,9 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 
 const FormSchema = z.object({
-  // date: z.iso.date({
-  //   message: "Must be in the format YYYY-MM-DD",
-  // }),
+  date: z.iso.date({
+    message: "Must be in the format YYYY-MM-DD",
+  }),
   balance: z
     .string()
     .min(1, { message: "This field cannot be empty" })
@@ -57,14 +57,22 @@ export default function RecordPage({
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-  React.useEffect(() => {
-    id && fetchRecord();
-  }, [id]);
+  // const fetchRecord = async () => {
+  //   const response = await axios.get(`${apiBaseUrl}/records/${id}`);
+  //   return setRecord(response.data);
+  // };
 
-  const fetchRecord = async () => {
-    const response = await axios.get(`${apiBaseUrl}/records/${id}`);
-    return setRecord(response.data);
-  };
+  // React.useEffect(() => {
+  //   id && fetchRecord();
+  // }, [id]);
+
+  // React.useEffect(() => {
+  //   record &&
+  //     reset({
+  //       date: record["date"],
+  //       balance: record["balance"],
+  //     });
+  // }, [record]);
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////
   // Fetch single record by ID
@@ -102,8 +110,10 @@ export default function RecordPage({
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      // date: "",
-      balance: "",
+      // date: record["balance"],
+      // balance: record["balance"],
+      date: "2021-01-01",
+      balance: "100",
     },
   });
 
@@ -177,7 +187,6 @@ export default function RecordPage({
                           type="text"
                           placeholder="date here"
                           {...field}
-                          // value={record.date}
                           disabled
                           tabIndex={-1}
                         />
@@ -197,7 +206,6 @@ export default function RecordPage({
                           type="text"
                           placeholder="balance here"
                           {...field}
-                          // value={record.balance}
                           disabled={isEditPending || isDeletePending}
                         />
                       </FormControl>
