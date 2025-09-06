@@ -48,7 +48,7 @@ export default function RecordPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const [record, setRecord] = React.useState(null);
+  const [record, setRecord] = React.useState([]);
   const [isEditPending, startEditTransition] = React.useTransition();
   const [isDeletePending, startDeleteTransition] = React.useTransition();
   const router = useRouter();
@@ -56,15 +56,14 @@ export default function RecordPage({
   const { id } = React.use(params);
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-  // const fetchRecord = async () => {
-  //   const response = await axios.get(`${apiBaseUrl}/records/${id}`);
-  //   return setRecord(response.data);
-  // };
-
-  // React.useEffect(() => {
-  //   id && fetchRecord();
-  // }, [id]);
+  React.useEffect(() => {
+    id && fetchRecord();
+  }, [id]);
+  const fetchRecord = async () => {
+    const response = await axios.get(`${apiBaseUrl}/records/${id}`);
+    console.log(response.data["balance"]);
+    // return setRecord(response.data["balance"]);
+  };
 
   // React.useEffect(() => {
   //   record &&

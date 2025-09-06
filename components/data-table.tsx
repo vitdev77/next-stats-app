@@ -106,7 +106,7 @@ export default function DataTable({ records }: IProps) {
                       size="icon"
                       className="size-8"
                     >
-                      <Link href={`/records/${record.id}`}>
+                      <Link href={`/test3/${record.id}`}>
                         <IconEdit />
                         <span className="sr-only">Edit</span>
                       </Link>
