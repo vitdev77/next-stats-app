@@ -46,24 +46,48 @@ const FormSchema = z.object({
 export function DataCreate() {
   const [isPending, startTransition] = React.useTransition();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  // const [isDataExists, setIsDataExists] = React.useState<boolean>(false);
   const router = useRouter();
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-  const currentDate = new Date();
-  const currentDateFormated = currentDate.toISOString().split("T")[0];
+  // const currentDate = new Date();
+  // const currentDateFormated = currentDate.toISOString().split("T")[0];
+  // console.log(currentDateFormated);
+
+  function toISOStringLocalTimezone(date: Date) {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const seconds = date.getSeconds().toString().padStart(2, "0");
+    const milliseconds = date.getMilliseconds().toString().padStart(3, "0");
+
+    const tzOffsetMinutes = -date.getTimezoneOffset();
+    const tzOffsetHours = Math.floor(Math.abs(tzOffsetMinutes) / 60)
+      .toString()
+      .padStart(2, "0");
+    const tzOffsetRemainingMinutes = (Math.abs(tzOffsetMinutes) % 60)
+      .toString()
+      .padStart(2, "0");
+    const tzOffsetSign = tzOffsetMinutes >= 0 ? "+" : "-";
+
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}${tzOffsetSign}${tzOffsetHours}:${tzOffsetRemainingMinutes}`;
+  }
+
+  const now = new Date();
+  const localISOString = toISOStringLocalTimezone(now);
+  const localISOStringFormated = localISOString.split("T")[0];
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      date: currentDateFormated,
+      date: localISOStringFormated,
       balance: "",
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    // setIsDataExists(false);
     startTransition(async () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -74,13 +98,11 @@ export function DataCreate() {
       const receivedData = response.data;
       if (receivedData === undefined || receivedData.length === 0) {
         await axios.post(`${apiBaseUrl}/records`, data);
-        // setIsDataExists(false);
         form.reset();
         setIsOpen(false);
         toast.success("New record has been successfully created.");
         // router.push("/records");
       } else {
-        // setIsDataExists(true);
         toast.error("Record is already exists.", {
           description: "Please insert another date in form below.",
         });
@@ -102,11 +124,6 @@ export function DataCreate() {
           <DialogDescription>
             Enter data below to create a new record to DB.
           </DialogDescription>
-          {/* {isDataExists && (
-            <p className="text-destructive text-sm">
-              Record is already exists. Please insert another date below
-            </p>
-          )} */}
         </DialogHeader>
         <Form {...form}>
           <form

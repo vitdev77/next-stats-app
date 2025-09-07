@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import axios from "axios";
+import NotFound from "@/app/[...not found]/page";
 
 export default function ItemDetail({
   params,
@@ -43,27 +44,24 @@ export default function ItemDetail({
   return (
     <div className="container-wrapper">
       <div className="container flex flex-col items-center gap-4 justify-center py-6">
+        {loading && <p className="text-muted-foreground">Loading data...</p>}
         {item ? (
-          loading ? (
-            <p className="text-5xl">Loading item details...</p>
-          ) : (
-            <div>
-              <h2 className="font-bold text-xl">Record Details</h2>
-              <p>
-                ID: <span className="text-blue-600 font-bold">{item.id}</span>
-              </p>
-              <p>
-                Date:{" "}
-                <span className="text-blue-600 font-bold">{item.date}</span>
-              </p>
-              <p>
-                Balance:{" "}
-                <span className="text-blue-600 font-bold">{item.balance}</span>
-              </p>
-            </div>
-          )
+          <div>
+            <h2 className="font-bold text-xl">Record Details</h2>
+            <p>
+              ID: <span className="text-blue-600 font-bold">{item.id}</span>
+            </p>
+            <p>
+              Date: <span className="text-blue-600 font-bold">{item.date}</span>
+            </p>
+            <p>
+              Balance:{" "}
+              <span className="text-blue-600 font-bold">{item.balance}</span>
+            </p>
+          </div>
         ) : error ? (
-          <p className="text-red-500">{error.message}</p>
+          // <p className="text-red-500">{error.message}</p>
+          <NotFound />
         ) : (
           ""
         )}
