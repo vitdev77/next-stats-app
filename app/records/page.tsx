@@ -6,6 +6,7 @@ import axios from "axios";
 import DataChart from "@/components/data-chart";
 import DataTable from "@/components/data-table";
 import { IconLoader3 } from "@tabler/icons-react";
+import { DataCreate } from "@/components/data-create";
 
 export default function Page() {
   const [records, setRecords] = React.useState<any[]>([]);
@@ -49,13 +50,14 @@ export default function Page() {
         {!loading && !error && (
           <>
             {isEmpty ? (
-              <div className="text-center py-6">
+              <div className="text-center flex flex-col items-center gap-2 py-6">
                 <h2 className="text-orange-400 text-2xl font-semibold">
                   No data found.
                 </h2>
-                <span className="text-muted-foreground">
+                <div className="text-muted-foreground">
                   DB is empty. There is no data to show you right now.
-                </span>
+                </div>
+                <DataCreate />
               </div>
             ) : (
               <div className="flex flex-col gap-4 md:gap-6 py-6">

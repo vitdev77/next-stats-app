@@ -48,7 +48,8 @@ export default function RecordPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const [record, setRecord] = React.useState([]);
+  const [item, setItem] = React.useState<any>(null);
+  const [error, setError] = React.useState<any>(null);
   const [isEditPending, startEditTransition] = React.useTransition();
   const [isDeletePending, startDeleteTransition] = React.useTransition();
   const router = useRouter();
@@ -56,14 +57,33 @@ export default function RecordPage({
   const { id } = React.use(params);
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
   React.useEffect(() => {
-    id && fetchRecord();
+    const fetchItem = async () => {
+      try {
+        // setLoading(true);
+        const response = await axios.get(`${apiBaseUrl}/records/${id}`); // Dynamic URL with ID
+        setItem(response.data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        // setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchItem();
+    }
   }, [id]);
-  const fetchRecord = async () => {
-    const response = await axios.get(`${apiBaseUrl}/records/${id}`);
-    console.log(response.data["balance"]);
-    // return setRecord(response.data["balance"]);
-  };
+
+  // React.useEffect(() => {
+  //   id && fetchRecord();
+  // }, [id]);
+  // const fetchRecord = async () => {
+  //   const response = await axios.get(`${apiBaseUrl}/records/${id}`);
+  //   console.log(response.data["balance"]);
+  //   // return setRecord(response.data["balance"]);
+  // };
 
   // React.useEffect(() => {
   //   record &&
@@ -109,8 +129,6 @@ export default function RecordPage({
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      // date: record["balance"],
-      // balance: record["balance"],
       date: "2021-01-01",
       balance: "100",
     },
@@ -152,6 +170,30 @@ export default function RecordPage({
   // console.log(ddaattaa);
 
   return (
+    // <div className="container-wrapper">
+    //   <div className="container flex flex-col items-center gap-4 justify-center py-6">
+    //     {item ? (
+    //       <div>
+    //         <h2 className="font-bold text-xl">Record Details</h2>
+    //         <p>
+    //           ID: <span className="text-blue-600 font-bold">{item.id}</span>
+    //         </p>
+    //         <p>
+    //           Date: <span className="text-blue-600 font-bold">{item.date}</span>
+    //         </p>
+    //         <p>
+    //           Balance:{" "}
+    //           <span className="text-blue-600 font-bold">{item.balance}</span>
+    //         </p>
+    //       </div>
+    //     ) : error ? (
+    //       // <p className="text-red-500">{error.message}</p>
+    //       <NotFound />
+    //     ) : (
+    //       ""
+    //     )}
+    //   </div>
+    // </div>
     <div className="container-wrapper">
       <div className="container flex flex-col items-center gap-4 justify-center py-6">
         <Card className="w-full max-w-sm">
