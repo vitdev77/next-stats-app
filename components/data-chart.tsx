@@ -62,9 +62,7 @@ export default function DataChart({ records }: IProps) {
     const formattedCurrentDate = new Date().toISOString().split("T")[0];
 
     let daysToSubtract = 90;
-    if (timeRange === "180d") {
-      daysToSubtract = 180;
-    } else if (timeRange === "30d") {
+    if (timeRange === "30d") {
       daysToSubtract = 30;
     } else if (timeRange === "7d") {
       daysToSubtract = 7;
@@ -92,7 +90,6 @@ export default function DataChart({ records }: IProps) {
             variant="outline"
             className="hidden *:data-[slot=toggle-group-item]:!px-4 @[767px]/card:flex"
           >
-            <ToggleGroupItem value="180d">Last 6 months</ToggleGroupItem>
             <ToggleGroupItem value="90d">Last 3 months</ToggleGroupItem>
             <ToggleGroupItem value="30d">Last 30 days</ToggleGroupItem>
             <ToggleGroupItem value="7d">Last 7 days</ToggleGroupItem>
@@ -106,9 +103,6 @@ export default function DataChart({ records }: IProps) {
               <SelectValue placeholder="Last 3 months" />
             </SelectTrigger>
             <SelectContent className="rounded-xl">
-              <SelectItem value="180d" className="rounded-lg">
-                Last 6 months
-              </SelectItem>
               <SelectItem value="90d" className="rounded-lg">
                 Last 3 months
               </SelectItem>

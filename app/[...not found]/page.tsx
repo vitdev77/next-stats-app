@@ -14,7 +14,7 @@ export default function NotFound() {
         </p>
       </div>
       <Button variant={"ghost"} asChild>
-        <Link href="/records">
+        <Link href="/">
           <IconArrowLeft /> Back to Records Page
         </Link>
       </Button>
