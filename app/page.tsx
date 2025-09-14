@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="container-wrapper 3xl:fixed:px-0 px-6">
       <div className="3xl:fixed:container w-full">
-        <div className="flex flex-row gap-4">
+        <div className="grid grid-cols-2 gap-10">
           <div>
             <RecordsPage />
           </div>

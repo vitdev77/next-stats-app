@@ -3,7 +3,7 @@
 import * as React from "react";
 import axios from "axios";
 
-// import DepositChart from "@/components/deposit-chart";
+import DepositChart from "@/components/deposit-chart";
 import DepositTable from "@/components/deposit-table";
 import { IconLoader3 } from "@tabler/icons-react";
 import { DepositCreate } from "@/components/deposit-create";
@@ -60,7 +60,7 @@ export default function DepositsPage() {
             </div>
           ) : (
             <div className="flex flex-col gap-4 md:gap-6 py-6">
-              {/* <DepositChart deposits={deposits} /> */}
+              <DepositChart deposits={deposits} />
               <DepositTable deposits={deposits} />
             </div>
           )}

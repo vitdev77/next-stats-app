@@ -28,22 +28,21 @@ import {
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 interface IProps {
-  records: {
+  deposits: {
     id: string;
     date: string;
-    balance: string;
-    profit?: string;
+    amount: string;
   }[];
 }
 
 const chartConfig = {
-  balance: {
-    label: "Balance",
+  deposit: {
+    label: "Deposit",
     color: "var(--primary)",
   },
 } satisfies ChartConfig;
 
-export default function DataChart({ records }: IProps) {
+export default function DepositChart({ deposits }: IProps) {
   const isMobile = useIsMobile();
   const [timeRange, setTimeRange] = React.useState("90d");
 
@@ -54,7 +53,7 @@ export default function DataChart({ records }: IProps) {
   }, [isMobile]);
 
   // Sorted Data
-  const sortedData = records.sort((a, b) => (a.date > b.date ? 1 : -1)); // sort data from NEW to LATE
+  const sortedData = deposits.sort((a, b) => (a.date > b.date ? 1 : -1)); // sort data from NEW to LATE
 
   // Filtered Data
   const filteredData = sortedData.filter((item) => {
@@ -75,7 +74,7 @@ export default function DataChart({ records }: IProps) {
   return (
     <Card className="@container/card">
       <CardHeader>
-        <CardTitle>Balance Statistics</CardTitle>
+        <CardTitle>Deposit Statistics</CardTitle>
         <CardDescription>
           <span className="hidden @[540px]/card:block">
             Total for the last 3 months
@@ -123,15 +122,15 @@ export default function DataChart({ records }: IProps) {
         >
           <AreaChart data={filteredData}>
             <defs>
-              <linearGradient id="fillBalance" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="fillDeposit" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-balance)"
+                  stopColor="var(--color-deposit)"
                   stopOpacity={1.0}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-balance)"
+                  stopColor="var(--color-deposit)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
@@ -169,12 +168,12 @@ export default function DataChart({ records }: IProps) {
             />
             <Area
               connectNulls
-              dataKey="balance"
+              dataKey="amount"
               type="monotone"
-              fill="url(#fillBalance)"
-              stroke="var(--color-balance)"
+              fill="url(#fillDeposit)"
+              stroke="var(--color-deposit)"
               strokeWidth={1}
-              stackId="a"
+              stackId="b"
             />
           </AreaChart>
         </ChartContainer>
