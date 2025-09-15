@@ -31,7 +31,7 @@ const FormSchema = z.object({
   date: z.iso.date({
     message: "Must be in the format YYYY-MM-DD",
   }),
-  amount: z
+  deposit: z
     .string()
     .min(1, { message: "This field cannot be empty" })
     .regex(/^(0|[1-9]\d*)\.\d{2}$/, {
@@ -39,6 +39,12 @@ const FormSchema = z.object({
     })
     .refine((val) => parseFloat(val) > 0, {
       message: "Money amount must be greater than 0",
+    }),
+  bonus: z
+    .string()
+    .min(1, { message: "This field cannot be empty" })
+    .regex(/^(0|[1-9]\d*)\.\d{2}$/, {
+      message: "Must be a number with exactly 2 decimal places (e.g. 100.00)",
     }),
 });
 
@@ -78,7 +84,8 @@ export function DepositCreate() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       date: localISOStringFormated,
-      amount: "",
+      deposit: "",
+      bonus: "0.00",
     },
   });
 
@@ -146,14 +153,32 @@ export function DepositCreate() {
             />
             <FormField
               control={form.control}
-              name="amount"
+              name="deposit"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Amount</FormLabel>
+                  <FormLabel>Deposit</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
                       placeholder="Amount of your deposit"
+                      {...field}
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="bonus"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Deposit</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="+ Bonus"
                       {...field}
                       disabled={isPending}
                     />

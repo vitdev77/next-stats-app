@@ -60,8 +60,6 @@ export default function DataTable({ records }: IProps) {
               <TableHead>Date</TableHead>
               <TableHead>Balance</TableHead>
               <TableHead>Profit</TableHead>
-              <TableHead>Deposits</TableHead>
-              <TableHead>Withdrawals</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -97,8 +95,6 @@ export default function DataTable({ records }: IProps) {
                       </div>
                     )}
                   </TableCell>
-                  <TableCell>Deposit</TableCell>
-                  <TableCell>Withdrawal</TableCell>
                   <TableCell className="flex justify-end gap-1">
                     <Button
                       asChild

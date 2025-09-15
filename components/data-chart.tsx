@@ -75,10 +75,10 @@ export default function DataChart({ records }: IProps) {
   return (
     <Card className="@container/card">
       <CardHeader>
-        <CardTitle>Balance Statistics</CardTitle>
+        <CardTitle>Balance</CardTitle>
         <CardDescription>
           <span className="hidden @[540px]/card:block">
-            Total for the last 3 months
+            Total statistics for the last 3 months
           </span>
           <span className="@[540px]/card:hidden">Last 3 months</span>
         </CardDescription>

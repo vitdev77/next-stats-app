@@ -31,7 +31,8 @@ interface IProps {
   deposits: {
     id: string;
     date: string;
-    amount: string;
+    deposit: string;
+    bonus: string;
   }[];
 }
 
@@ -74,10 +75,10 @@ export default function DepositChart({ deposits }: IProps) {
   return (
     <Card className="@container/card">
       <CardHeader>
-        <CardTitle>Deposit Statistics</CardTitle>
+        <CardTitle>Deposit</CardTitle>
         <CardDescription>
           <span className="hidden @[540px]/card:block">
-            Total for the last 3 months
+            Total statistics for the last 3 months
           </span>
           <span className="@[540px]/card:hidden">Last 3 months</span>
         </CardDescription>
@@ -168,7 +169,7 @@ export default function DepositChart({ deposits }: IProps) {
             />
             <Area
               connectNulls
-              dataKey="amount"
+              dataKey="deposit"
               type="monotone"
               fill="url(#fillDeposit)"
               stroke="var(--color-deposit)"

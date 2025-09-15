@@ -28,7 +28,8 @@ interface IProps {
   deposits: {
     id: string;
     date: string;
-    amount: string;
+    deposit: string;
+    bonus: string;
   }[];
 }
 
@@ -58,7 +59,7 @@ export default function DepositTable({ deposits }: IProps) {
                   <TableCell>{deposit.date}</TableCell>
                   <TableCell>
                     {deposit ? (
-                      `${deposit.amount} USD`
+                      `${deposit.deposit} USD`
                     ) : (
                       <span className="text-muted-foreground">no data</span>
                     )}
