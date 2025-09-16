@@ -41,6 +41,10 @@ const chartConfig = {
     label: "Deposit",
     color: "var(--primary)",
   },
+  withBonus: {
+    label: "With Bonus",
+    color: "var(--muted)",
+  },
 } satisfies ChartConfig;
 
 export default function DepositChart({ deposits }: IProps) {
@@ -135,6 +139,18 @@ export default function DepositChart({ deposits }: IProps) {
                   stopOpacity={0.1}
                 />
               </linearGradient>
+              <linearGradient id="fillWithBonus" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor="var(--color-withBonus)"
+                  stopOpacity={1.0}
+                />
+                <stop
+                  offset="95%"
+                  stopColor="var(--color-withBonus)"
+                  stopOpacity={0.1}
+                />
+              </linearGradient>
             </defs>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <Legend />
@@ -175,6 +191,15 @@ export default function DepositChart({ deposits }: IProps) {
               stroke="var(--color-deposit)"
               strokeWidth={1}
               stackId="b"
+            />
+            <Area
+              connectNulls
+              dataKey="withBonus"
+              type="monotone"
+              fill="url(#fillWithBonus)"
+              stroke="var(--color-withBonus)"
+              strokeWidth={1}
+              stackId="c"
             />
           </AreaChart>
         </ChartContainer>

@@ -40,7 +40,7 @@ const FormSchema = z.object({
     .refine((val) => parseFloat(val) > 0, {
       message: "Money amount must be greater than 0",
     }),
-  bonus: z
+  withBonus: z
     .string()
     .min(1, { message: "This field cannot be empty" })
     .regex(/^(0|[1-9]\d*)\.\d{2}$/, {
@@ -85,7 +85,7 @@ export function DepositCreate() {
     defaultValues: {
       date: localISOStringFormated,
       deposit: "",
-      bonus: "0.00",
+      withBonus: "",
     },
   });
 
@@ -171,14 +171,14 @@ export function DepositCreate() {
             />
             <FormField
               control={form.control}
-              name="bonus"
+              name="withBonus"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Deposit</FormLabel>
+                  <FormLabel>With Bonus</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
-                      placeholder="+ Bonus"
+                      placeholder="Your Deposit + Bonus"
                       {...field}
                       disabled={isPending}
                     />

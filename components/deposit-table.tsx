@@ -29,7 +29,7 @@ interface IProps {
     id: string;
     date: string;
     deposit: string;
-    bonus: string;
+    withBonus: string;
   }[];
 }
 
@@ -47,6 +47,7 @@ export default function DepositTable({ deposits }: IProps) {
               <TableHead className="w-[100px]">ID</TableHead>
               <TableHead>Date</TableHead>
               <TableHead>Deposit</TableHead>
+              <TableHead>With Bonus</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -64,6 +65,7 @@ export default function DepositTable({ deposits }: IProps) {
                       <span className="text-muted-foreground">no data</span>
                     )}
                   </TableCell>
+                  <TableCell>{deposit.withBonus} USD</TableCell>
                   <TableCell className="flex justify-end gap-1">
                     <Button
                       asChild
