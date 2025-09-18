@@ -3,97 +3,122 @@
     {
       "id": "8d15",
       "date": "2025-08-30",
-      "balance": "200.00"
+      "balance": "200.00",
+      "profit": ""
     },
     {
       "id": "85at",
       "date": "2025-08-31",
-      "balance": "203.34"
+      "balance": "203.34",
+      "profit": ""
     },
     {
       "id": "8f24",
       "date": "2025-09-01",
-      "balance": "207.94"
+      "balance": "207.94",
+      "profit": ""
     },
     {
       "id": "0b81",
       "date": "2025-09-02",
-      "balance": "212.24"
+      "balance": "212.24",
+      "profit": ""
     },
     {
       "id": "6392",
       "date": "2025-09-03",
-      "balance": "215.20"
+      "balance": "215.20",
+      "profit": ""
     },
     {
       "id": "8b67",
       "date": "2025-09-04",
-      "balance": "220.16"
+      "balance": "220.16",
+      "profit": ""
     },
     {
       "id": "e9b1",
       "date": "2025-09-05",
-      "balance": "225.74"
+      "balance": "225.74",
+      "profit": ""
     },
     {
       "id": "431f",
       "date": "2025-09-06",
-      "balance": "227.70"
+      "balance": "227.70",
+      "profit": ""
     },
     {
       "id": "7891",
       "date": "2025-09-07",
-      "balance": "231.70"
+      "balance": "231.70",
+      "profit": ""
     },
     {
       "id": "9c2b",
       "date": "2025-09-08",
-      "balance": "0.98"
+      "balance": "0.98",
+      "profit": ""
     },
     {
       "id": "ab1f",
       "date": "2025-09-14",
-      "balance": "200.98"
+      "balance": "200.98",
+      "profit": ""
     },
     {
       "id": "2b01",
       "date": "2025-09-09",
-      "balance": "0.98"
+      "balance": "0.98",
+      "profit": ""
     },
     {
       "id": "1277",
       "date": "2025-09-10",
-      "balance": "0.98"
+      "balance": "0.98",
+      "profit": ""
     },
     {
       "id": "7ae8",
       "date": "2025-09-11",
-      "balance": "0.98"
+      "balance": "0.98",
+      "profit": ""
     },
     {
       "id": "4dac",
       "date": "2025-09-12",
-      "balance": "0.98"
+      "balance": "0.98",
+      "profit": ""
     },
     {
       "id": "503d",
       "date": "2025-09-13",
-      "balance": "0.98"
+      "balance": "0.98",
+      "profit": ""
     },
     {
       "id": "fddd",
       "date": "2025-09-15",
-      "balance": "208.05"
+      "balance": "208.05",
+      "profit": ""
     },
     {
       "id": "2f97",
       "date": "2025-09-16",
-      "balance": "214.69"
+      "balance": "214.69",
+      "profit": ""
     },
     {
       "id": "8640",
       "date": "2025-09-17",
-      "balance": "218.71"
+      "balance": "218.71",
+      "profit": ""
+    },
+    {
+      "id": "51ca",
+      "date": "2025-09-18",
+      "balance": "227.15",
+      "profit": ""
     }
   ],
   "deposits": [

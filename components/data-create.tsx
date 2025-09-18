@@ -40,6 +40,7 @@ const FormSchema = z.object({
     .refine((val) => parseFloat(val) > 0, {
       message: "Money amount must be greater than 0",
     }),
+  profit: z.string(),
 });
 
 export function DataCreate() {
@@ -83,6 +84,7 @@ export function DataCreate() {
     defaultValues: {
       date: localISOStringFormated,
       balance: "",
+      profit: "",
     },
   });
 
@@ -165,6 +167,11 @@ export function DataCreate() {
                   <FormMessage />
                 </FormItem>
               )}
+            />
+            <FormField
+              control={form.control}
+              name="profit"
+              render={({ field }) => <Input type="hidden" {...field} />}
             />
             <Button
               type="submit"
